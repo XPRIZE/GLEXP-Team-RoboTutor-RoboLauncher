@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="datashop-logging">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/util/libs/datashop-logging.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

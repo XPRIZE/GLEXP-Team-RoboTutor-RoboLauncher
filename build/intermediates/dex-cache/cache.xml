@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b24e1c688744078e1fa833ffadf696794761bbe5">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-25.0.1_c26c5209c53d46305b023762320c5b3f6552adef.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="26c6eef571592c91f29e56fda0bac73321de0c92">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.0.1_8f7cb059ef5238c4063cecadcb5fc5e6fd9d745c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/com.android.support/percent/24.2.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b10d60271c8298c59316050648bd9bb7adc5019a">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/com.android.support-percent-24.2.0_be937822109e9f61e58abc7d8751b62ccfb634e6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/GLEXP-Team-Project-Listen-RTHome_Screen/util/unspecified/jars/libs/datashop-logging.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="452071d61c41982ca0cdd34d10d7c504956759d2">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/datashop-logging_3b038b64d991677d3bca1dde0c1a719ba251cac9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/GLEXP-Team-Project-Listen-RTHome_Screen/comp_pointtap/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7a5d64ac63ce69c4f07b4a9e79c52893174b6b52">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/GLEXP-Team-Project-Listen-RTHome_Screen-comp_pointtap-unspecified_c089abd1d1f87ec9568112494fb39d0557c9b64a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="f7ac4b327fdb9e2ee386f5adc46164927658de4b">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-25.0.1_0385421189c3e98288b91bfc3004817ca4716fd9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="f83b00041ecfba705603fec40363416c7de69719">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/internal_impl-25.0.1_1f631bd6efcc6cef6d420ba37637512d0f3685c6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-25.0.1_227cd6704260fbae48a421d67d9bc88d5e351526.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/internal_impl-25.0.1_12b64b6abdf5796f20a3f60764fd2136501d9f0e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.0.1_f19fbff700c3f52414155e107b9079f2be182ac5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="3af8cc51ef7088e56f132780da8c0bd858b6a6ad">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/internal_impl-25.0.1_5325b682de084832b84acc283df1b13a8cd71b8a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-25.0.1_327ce8f34299c6f9f8bb0e97c58f7a8554a9cdcf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="c5b7145fb34779b6639147b8f2f8dd77c0db771b">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/internal_impl-25.0.1_e55f02f781444f46cf0db444e15c3fb7ff41bd5a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.0.1/support-annotations-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="a09194311f8f89c3e6db09d79f50897a889d615e">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/support-annotations-25.0.1_77d7e2e127d51650f5d4f5807ff49e27ac68a3e5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/GLEXP-Team-Project-Listen-RTHome_Screen/util/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="03d30cd8c77ffa166aa2b8a0e3d6727444514306">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/GLEXP-Team-Project-Listen-RTHome_Screen-util-unspecified_78a5c97091ab301de3b7cb278c470265b7ed8173.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="51eba4a4dd73044f90a9d58dd7ca34adbebfcf4e">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.0.1_abcfc6dd191f5b80eed414edeb37f7d3d554f8c1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-25.0.1_1b45d48686228a1527d6b733a1fd04ba812dabae.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/internal_impl-25.0.1_101968f7e36ddd2a7dbeeccc2c228e72488d4e07.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
+        <dex dex="/Users/vishnurtejus/Developer/GitHub/GLEXP-Team-Project-Listen-RTHome_Screen/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.0.1_8a13e775905baeae8259ca6021fb1a98a4aba0a5.jar" />
+    </item>
+
+</items>
