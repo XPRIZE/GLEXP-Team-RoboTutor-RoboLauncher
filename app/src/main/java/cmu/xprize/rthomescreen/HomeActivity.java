@@ -86,10 +86,14 @@ public class HomeActivity extends Activity implements IRoboTutor{
         Log.d("Start", "Tutor");
 
         extPackage = intent.substring(0, intent.lastIndexOf('.'));
+        extPackage = intent + ".GalleryActivity";
 
         extIntent.setClassName(extPackage, intent);
         extIntent.putExtra("intentdata", intentData);
         extIntent.putExtra("features", features);
+
+        Intent launchIntent = getPackageManager().getLaunchIntentForPackage(intent);
+        startActivity(launchIntent);
 
         try {
             activityLocal.startActivity(extIntent);

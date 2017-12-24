@@ -12,12 +12,43 @@ android {
         versionCode rootProject.ext.rtVersionCode
         versionName rootProject.ext.rtVersionName
     }
+
+    def keystorePropertiesFile = rootProject.file("keystore.properties")
+    def keystoreProperties = new Properties()
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+    signingConfigs {
+        android {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.android
         }
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def project = "RoboLaunch"
+            def SEP = "."
+            def buildType = variant.variantData.variantConfiguration.buildType.name
+            def version = variant.versionName
+
+            def apkName = project + SEP + buildType + SEP + version + ".apk"
+            output.outputFile = new File(output.outputFile.parent, apkName)
+        }
+
+    }
+
+
 }
 
 dependencies {
@@ -25,7 +56,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:appcompat-v7:25.2.0'
     testCompile 'junit:junit:4.12'
     compile project(path: ':util')
     compile project(':comp_pointtap')
