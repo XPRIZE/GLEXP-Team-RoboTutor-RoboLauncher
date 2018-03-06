@@ -1,9 +1,15 @@
 package cmu.xprize.rthomescreen;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.admin.DeviceAdminReceiver;
 import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,22 +18,53 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import cmu.xprize.rthomescreen.startup.CMasterContainer;
 import cmu.xprize.rthomescreen.startup.CStartView;
 import cmu.xprize.util.IRoboTutor;
 
+import static android.os.UserManager.DISALLOW_ADD_USER;
+import static android.os.UserManager.DISALLOW_ADJUST_VOLUME;
+import static android.os.UserManager.DISALLOW_FACTORY_RESET;
+import static android.os.UserManager.DISALLOW_MOUNT_PHYSICAL_MEDIA;
+import static android.os.UserManager.DISALLOW_SAFE_BOOT;
+
 public class HomeActivity extends Activity implements IRoboTutor{
 
     static public CMasterContainer masterContainer;
-    static public Activity         activityLocal;
 
     private CStartView startView;
+
+    // kiosk info
+    private ComponentName mAdminComponentName;
+    private DevicePolicyManager mDevicePolicyManager;
+    private PackageManager mPackageManager;
+    private String mPackageName;
+    private ArrayList<String> mKioskPackages;
+    private String flPackage = "com.example.iris.login1";
+    private String rtPackage = "cmu.xprize.robotutor";
+
+    private static final String TAG = "RTHomeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        activityLocal = this;
+        // stuff needed for kiosk mode
+        mAdminComponentName = AdminReceiver.getComponentName(this);
+        mDevicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+        mPackageManager = getPackageManager();
+        mPackageName = getPackageName();
+
+        // mKisokPackages
+        mKioskPackages = new ArrayList<>();
+        mKioskPackages.add(flPackage);
+        mKioskPackages.add(rtPackage);
+        mKioskPackages.add(mPackageName);
+
+        setDefaultKioskPolicies(true);
+
 
         // Get the primary container for tutors
         setContentView(R.layout.activity_home);
@@ -38,12 +75,10 @@ public class HomeActivity extends Activity implements IRoboTutor{
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // Create the start dialog
-        // TODO: This is a temporary log update mechanism - see below
         //
         startView = (CStartView)inflater.inflate(R.layout.start_layout, null );
         startView.setCallback(this);
 
-        // TODO: This is a temporary log update mechanism - see below
         //
         masterContainer.addAndShow(startView);
         startView.startTapTutor();
@@ -55,8 +90,70 @@ public class HomeActivity extends Activity implements IRoboTutor{
         catch(Exception e) {
 
         }
+    }
 
-        startLockTask();
+    private void setDefaultKioskPolicies(boolean active) {
+
+        // set user restrictions
+        setUserRestriction(DISALLOW_SAFE_BOOT, active);
+        setUserRestriction(DISALLOW_FACTORY_RESET, active);
+        setUserRestriction(DISALLOW_ADD_USER, active);
+        setUserRestriction(DISALLOW_MOUNT_PHYSICAL_MEDIA, active);
+
+        // XXX disable keyguard and status bar
+        mDevicePolicyManager.setKeyguardDisabled(mAdminComponentName, active);
+        mDevicePolicyManager.setStatusBarDisabled(mAdminComponentName, active);
+
+
+        // XXX default home screen
+        if (active) {
+            // create an intent filter
+            IntentFilter intentFilter = new IntentFilter(Intent.ACTION_MAIN);
+            intentFilter.addCategory(Intent.CATEGORY_HOME);
+            intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
+
+            // set as default home screen
+            mDevicePolicyManager.addPersistentPreferredActivity(mAdminComponentName, intentFilter,
+                    new ComponentName(mPackageName, HomeActivity.class.getName()));
+        } else {
+            // otherwise clear deafult home screen
+            mDevicePolicyManager.clearPackagePersistentPreferredActivities(mAdminComponentName, mPackageName);
+        }
+
+        // XXX setLockTaskPackages
+        mDevicePolicyManager.setLockTaskPackages(mAdminComponentName,
+                active ? mKioskPackages.toArray(new String[]{}) : new String[]{});
+
+
+    }
+
+    /**
+     * for setting user restrictions
+     *
+     * @param restriction
+     * @param disallow
+     */
+    private void setUserRestriction(String restriction, boolean disallow) {
+        if (disallow) {
+            mDevicePolicyManager.addUserRestriction(mAdminComponentName, restriction);
+        } else {
+            mDevicePolicyManager.clearUserRestriction(mAdminComponentName, restriction);
+        }
+    }
+
+    /**
+     * Backdoor to allow exiting kiosk mode
+     */
+    public void onBackdoorClicked() {
+        stopLockTask();
+        setDefaultKioskPolicies(false);
+
+        mPackageManager.setComponentEnabledSetting(
+                new ComponentName(getPackageName(), getClass().getName()),
+                PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
+                PackageManager.DONT_KILL_APP);
+
+        finish();
     }
 
 
@@ -75,37 +172,27 @@ public class HomeActivity extends Activity implements IRoboTutor{
     @Override
     public void onStartTutor() {
 
-        String intent = "com.example.iris.login1";
-        String intentData = "";
-        String dataSourceJson = "";
-        String features = "";
-
-        Intent extIntent = new Intent();
-        String extPackage;
-
-        Log.d("Start", "Tutor");
-
-        extPackage = intent.substring(0, intent.lastIndexOf('.'));
-        extPackage = intent + ".GalleryActivity";
-
-        extIntent.setClassName(extPackage, intent);
-        extIntent.putExtra("intentdata", intentData);
-        extIntent.putExtra("features", features);
-
-        Intent launchIntent = getPackageManager().getLaunchIntentForPackage(intent);
-        startActivity(launchIntent);
-
-        try {
-            activityLocal.startActivity(extIntent);
-        }
-        catch(Exception e) {
-            Log.e("Home", "Launch Error: " + e + " : " + intent);
-        }
+        Log.w(TAG, "Starting FaceLogin");
+        startActivity(mPackageManager.getLaunchIntentForPackage(flPackage));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        // start lock task mode if it's not already active
+        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        // ActivityManager.getLockTaskModeState api is not available in pre-M
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            if (!am.isInLockTaskMode()) {
+                startLockTask();
+            }
+        } else {
+            if (am.getLockTaskModeState() == ActivityManager.LOCK_TASK_MODE_NONE) {
+                startLockTask();
+            }
+        }
+
 
         setFullScreen();
     }
