@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -52,6 +53,7 @@ public class HomeActivity extends Activity implements IRoboTutor{
         super.onCreate(savedInstanceState);
 
         // stuff needed for kiosk mode
+        // TODO move this to one class
         mAdminComponentName = AdminReceiver.getComponentName(this);
         mDevicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
         mPackageManager = getPackageManager();
@@ -63,7 +65,11 @@ public class HomeActivity extends Activity implements IRoboTutor{
         mKioskPackages.add(rtPackage);
         mKioskPackages.add(mPackageName);
 
-        setDefaultKioskPolicies(true);
+        try {
+            setDefaultKioskPolicies(true);
+        } catch (SecurityException e) {
+            Toast.makeText(getApplicationContext(), "WARNING: This app is not the Device Owner. Kiosk mode not enabled.", Toast.LENGTH_LONG).show();
+        }
 
 
         // Get the primary container for tutors
@@ -92,7 +98,13 @@ public class HomeActivity extends Activity implements IRoboTutor{
         }
     }
 
-    private void setDefaultKioskPolicies(boolean active) {
+    /**
+     *
+     *
+     * @param active
+     * @throws SecurityException if this package doesn't have Device Owner privileges
+     */
+    private void setDefaultKioskPolicies (boolean active) throws SecurityException {
 
         // set user restrictions
         setUserRestriction(DISALLOW_SAFE_BOOT, active);
@@ -173,7 +185,14 @@ public class HomeActivity extends Activity implements IRoboTutor{
     public void onStartTutor() {
 
         Log.w(TAG, "Starting FaceLogin");
-        startActivity(mPackageManager.getLaunchIntentForPackage(flPackage));
+        Intent flIntent = mPackageManager.getLaunchIntentForPackage(flPackage);
+
+        if(flIntent != null) {
+            startActivity(flIntent);
+        } else {
+            Toast.makeText(getApplicationContext(), "Please install FaceLogin", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
