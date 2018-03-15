@@ -36,7 +36,12 @@
 
         <activity
             android:name=".RemoveAdmin"
-            android:exported="true"/>
+            android:exported="true"
+            android:theme="@android:style/Theme.NoDisplay"/>
+
+        <activity android:name=".SetAppPermissions"
+            android:exported="true"
+            android:theme="@android:style/Theme.NoDisplay"/>
 
         <receiver
             android:name=".AdminReceiver"

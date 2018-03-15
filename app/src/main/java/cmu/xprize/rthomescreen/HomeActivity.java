@@ -8,7 +8,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PermissionInfo;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +47,7 @@ public class HomeActivity extends Activity implements IRoboTutor{
     private ArrayList<String> mKioskPackages;
     private String flPackage = "com.example.iris.login1";
     private String rtPackage = "cmu.xprize.robotutor";
+    private String ftpPackage = "cmu.xprize.service_ftp";
 
     private static final String TAG = "RTHomeActivity";
 
@@ -71,6 +74,8 @@ public class HomeActivity extends Activity implements IRoboTutor{
             Toast.makeText(getApplicationContext(), "WARNING: This app is not the Device Owner. Kiosk mode not enabled.", Toast.LENGTH_LONG).show();
         }
 
+        setAppPermissions();
+
 
         // Get the primary container for tutors
         setContentView(R.layout.activity_home);
@@ -95,6 +100,47 @@ public class HomeActivity extends Activity implements IRoboTutor{
         }
         catch(Exception e) {
 
+        }
+    }
+
+    /**
+     * Enables all dangerous permissions for each of our APKs
+     */
+    private void setAppPermissions() {
+
+
+        String[] pkgs = {rtPackage, flPackage, ftpPackage};
+
+        for (String pkg : pkgs) {
+            PackageInfo info = null;
+            try {
+                // get permissions
+                info = mPackageManager.getPackageInfo(pkg, PackageManager.GET_PERMISSIONS);
+
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            if (info != null && info.requestedPermissions != null) {
+                for (String requestedPerm : info.requestedPermissions) {
+                    try {
+                        PermissionInfo pInfo = mPackageManager.getPermissionInfo(requestedPerm, 0);
+
+                        if (pInfo != null) {
+                            // only do for permissions that require user permission
+                            if ((pInfo.protectionLevel & PermissionInfo.PROTECTION_MASK_BASE) == PermissionInfo.PROTECTION_DANGEROUS) {
+                                Log.w("DEBUG_PERMISSIONS", pkg + " - " + pInfo.name);
+
+                                // set to GRANTED
+                                mDevicePolicyManager.setPermissionGrantState(mAdminComponentName, pkg, pInfo.name, DevicePolicyManager.PERMISSION_GRANT_STATE_GRANTED);
+                            }
+                        }
+
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
     }
 
