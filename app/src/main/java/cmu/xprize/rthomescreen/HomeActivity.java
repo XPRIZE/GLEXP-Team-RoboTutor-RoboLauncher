@@ -101,6 +101,7 @@ public class HomeActivity extends Activity implements IRoboTutor{
         catch(Exception e) {
 
         }
+        launchFtpService();
     }
 
     /**
@@ -109,11 +110,14 @@ public class HomeActivity extends Activity implements IRoboTutor{
     private void launchFtpService() {
         // wait... why include this as library??? why not just make separate app?
 
-        Intent ftpIntent = getPackageManager().getLaunchIntentForPackage(ftpPackage);
-        if(ftpIntent == null) {
-            Toast.makeText(getApplicationContext(), "RoboTransfer not started.", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        Intent ftpIntent = new Intent();
+        ftpIntent.setComponent(
+                new ComponentName("cmu.xprize.service_ftp", "cmu.xprize.service_ftp.RoboTransferReceiver")
+        );
+
+        ftpIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+
+
         Log.w("LAUNCH_DEBUG", "Launching RoboTransfer... " + ftpIntent.getPackage());
 
         ftpIntent.putExtra("FTP_ADDRESS",   getResources().getString(R.string.ftp_address));
@@ -125,7 +129,7 @@ public class HomeActivity extends Activity implements IRoboTutor{
         ftpIntent.putExtra("FTP_WRITE_DIRS",getResources().getStringArray(R.array.ftp_write_dirs));
 
 
-        startActivity(ftpIntent);
+        sendBroadcast(ftpIntent);
     }
 
     /**
