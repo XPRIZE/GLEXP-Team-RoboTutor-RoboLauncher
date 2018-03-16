@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ftp_address">128.237.135.9</string>
+    <string name="ftp_user">anonymous</string>
+    <string name="ftp_pw"></string>
+    <integer name="ftp_port">2121</integer>
+
+    <string-array name="ftp_read_dirs">
+        <item>RoboTutor</item>
+    </string-array>
+
+    <string-array name="ftp_write_dirs">
+        <item>local</item>
+    </string-array>
+</resources>

@@ -25,6 +25,10 @@ import static android.os.UserManager.DISALLOW_SAFE_BOOT;
 
 public class SetAppPermissions extends Activity {
 
+    private String flPackage = "com.example.iris.login1";
+    private String rtPackage = "cmu.xprize.robotutor";
+    private String ftpPackage = "cmu.xprize.service_ftp";
+
     private ComponentName mAdminComponentName;
     private DevicePolicyManager mDevicePolicyManager;
     private String mPackageName;
@@ -44,37 +48,50 @@ public class SetAppPermissions extends Activity {
         mPackageName = getPackageName();
 
 
-        String pkg = "cmu.xprize.service_ftp";
-
-        PackageInfo info = null;
-        try {
-            info = mPackageManager.getPackageInfo(pkg, PackageManager.GET_PERMISSIONS);
-
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        if ( info != null && info.requestedPermissions != null) {
-            for (String requestedPerm : info.requestedPermissions) {
-                try {
-                    PermissionInfo pInfo = mPackageManager.getPermissionInfo(requestedPerm, 0);
-
-                    if (pInfo != null) {
-                        if ((pInfo.protectionLevel & PermissionInfo.PROTECTION_MASK_BASE) == PermissionInfo.PROTECTION_DANGEROUS) {
-                            Log.w("DEBUG_PERMISSIONS", pkg + " - " + pInfo.name);
-
-                            mDevicePolicyManager.setPermissionGrantState(mAdminComponentName, pkg, pInfo.name, DevicePolicyManager.PERMISSION_GRANT_STATE_GRANTED);
-                        }
-                    }
-
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        setAppPermissions();
 
         finish();
 
+    }
+
+    /**
+     * Enables all dangerous permissions for each of our APKs
+     */
+    private void setAppPermissions() {
+
+        String[] pkgs = {rtPackage, flPackage, ftpPackage};
+
+        for (String pkg : pkgs) {
+            PackageInfo info = null;
+            try {
+                // get permissions
+                info = mPackageManager.getPackageInfo(pkg, PackageManager.GET_PERMISSIONS);
+
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            if (info != null && info.requestedPermissions != null) {
+                for (String requestedPerm : info.requestedPermissions) {
+                    try {
+                        PermissionInfo pInfo = mPackageManager.getPermissionInfo(requestedPerm, 0);
+
+                        if (pInfo != null) {
+                            // only do for permissions that require user permission
+                            if ((pInfo.protectionLevel & PermissionInfo.PROTECTION_MASK_BASE) == PermissionInfo.PROTECTION_DANGEROUS) {
+                                Log.w("DEBUG_PERMISSIONS", pkg + " - " + pInfo.name);
+
+                                // set to GRANTED
+                                mDevicePolicyManager.setPermissionGrantState(mAdminComponentName, pkg, pInfo.name, DevicePolicyManager.PERMISSION_GRANT_STATE_GRANTED);
+                            }
+                        }
+
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 
 

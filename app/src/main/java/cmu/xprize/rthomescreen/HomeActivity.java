@@ -74,7 +74,7 @@ public class HomeActivity extends Activity implements IRoboTutor{
             Toast.makeText(getApplicationContext(), "WARNING: This app is not the Device Owner. Kiosk mode not enabled.", Toast.LENGTH_LONG).show();
         }
 
-        setAppPermissions();
+        //setAppPermissions();
 
 
         // Get the primary container for tutors
@@ -104,10 +104,34 @@ public class HomeActivity extends Activity implements IRoboTutor{
     }
 
     /**
+     * launch RoboTransfer, a service to transfer log files
+     */
+    private void launchFtpService() {
+        // wait... why include this as library??? why not just make separate app?
+
+        Intent ftpIntent = getPackageManager().getLaunchIntentForPackage(ftpPackage);
+        if(ftpIntent == null) {
+            Toast.makeText(getApplicationContext(), "RoboTransfer not started.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Log.w("LAUNCH_DEBUG", "Launching RoboTransfer... " + ftpIntent.getPackage());
+
+        ftpIntent.putExtra("FTP_ADDRESS",   getResources().getString(R.string.ftp_address));
+        ftpIntent.putExtra("FTP_USER",      getResources().getString(R.string.ftp_user));
+        ftpIntent.putExtra("FTP_PW",        getResources().getString(R.string.ftp_pw));
+        ftpIntent.putExtra("FTP_PORT",      getResources().getInteger(R.integer.ftp_port));
+
+        ftpIntent.putExtra("FTP_READ_DIRS", getResources().getStringArray(R.array.ftp_read_dirs));
+        ftpIntent.putExtra("FTP_WRITE_DIRS",getResources().getStringArray(R.array.ftp_write_dirs));
+
+
+        startActivity(ftpIntent);
+    }
+
+    /**
      * Enables all dangerous permissions for each of our APKs
      */
     private void setAppPermissions() {
-
 
         String[] pkgs = {rtPackage, flPackage, ftpPackage};
 
@@ -202,7 +226,7 @@ public class HomeActivity extends Activity implements IRoboTutor{
     /**
      * Backdoor to allow exiting kiosk mode
      */
-    public void onBackdoorClicked() {
+    public void onBackdoorPressed() {
         stopLockTask();
         setDefaultKioskPolicies(false);
 
@@ -211,7 +235,7 @@ public class HomeActivity extends Activity implements IRoboTutor{
                 PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
                 PackageManager.DONT_KILL_APP);
 
-        finish();
+        //finish();
     }
 
 
@@ -244,6 +268,7 @@ public class HomeActivity extends Activity implements IRoboTutor{
     @Override
     protected void onStart() {
         super.onStart();
+
 
         // start lock task mode if it's not already active
         ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);

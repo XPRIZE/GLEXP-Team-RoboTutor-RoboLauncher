@@ -39,7 +39,8 @@
             android:exported="true"
             android:theme="@android:style/Theme.NoDisplay"/>
 
-        <activity android:name=".SetAppPermissions"
+        <activity
+            android:name=".SetAppPermissions"
             android:exported="true"
             android:theme="@android:style/Theme.NoDisplay"/>
 
