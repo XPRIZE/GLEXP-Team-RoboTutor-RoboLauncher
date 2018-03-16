@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cmu.xprize.rthomescreen">
 
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
 
     <application
@@ -48,6 +49,10 @@
             android:name=".StartRoboTransfer"
             android:exported="true">
         </receiver>
+
+        <receiver
+            android:name=".ConfigureWifi"
+            android:exported="true"/>
 
         <receiver
             android:name=".AdminReceiver"

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wifi_ssid">XPRIZE</string>
+    <string name="wifi_security"></string>
+    <string name="wifi_pw"></string>
+
+</resources>
