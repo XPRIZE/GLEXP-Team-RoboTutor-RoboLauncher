@@ -48,6 +48,7 @@ public class HomeActivity extends Activity implements IRoboTutor{
     private String flPackage = "com.example.iris.login1";
     private String rtPackage = "cmu.xprize.robotutor";
     private String ftpPackage = "cmu.xprize.service_ftp";
+    private String ftpStartReceiver = ftpPackage + ".RoboTransferReceiver";
 
     private static final String TAG = "RTHomeActivity";
 
@@ -108,69 +109,19 @@ public class HomeActivity extends Activity implements IRoboTutor{
      * launch RoboTransfer, a service to transfer log files
      */
     private void launchFtpService() {
-        // wait... why include this as library??? why not just make separate app?
 
         Intent ftpIntent = new Intent();
         ftpIntent.setComponent(
-                new ComponentName("cmu.xprize.service_ftp", "cmu.xprize.service_ftp.RoboTransferReceiver")
+                new ComponentName(ftpPackage , ftpStartReceiver)
         );
 
         ftpIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
 
-
-        Log.w("LAUNCH_DEBUG", "Launching RoboTransfer... " + ftpIntent.getPackage());
-
-        ftpIntent.putExtra("FTP_ADDRESS",   getResources().getString(R.string.ftp_address));
-        ftpIntent.putExtra("FTP_USER",      getResources().getString(R.string.ftp_user));
-        ftpIntent.putExtra("FTP_PW",        getResources().getString(R.string.ftp_pw));
-        ftpIntent.putExtra("FTP_PORT",      getResources().getInteger(R.integer.ftp_port));
-
-        ftpIntent.putExtra("FTP_READ_DIRS", getResources().getStringArray(R.array.ftp_read_dirs));
-        ftpIntent.putExtra("FTP_WRITE_DIRS",getResources().getStringArray(R.array.ftp_write_dirs));
-
+        Log.i("LAUNCH_DEBUG", "Launching RoboTransfer... " + ftpIntent.getPackage());
 
         sendBroadcast(ftpIntent);
     }
 
-    /**
-     * Enables all dangerous permissions for each of our APKs
-     */
-    private void setAppPermissions() {
-
-        String[] pkgs = {rtPackage, flPackage, ftpPackage};
-
-        for (String pkg : pkgs) {
-            PackageInfo info = null;
-            try {
-                // get permissions
-                info = mPackageManager.getPackageInfo(pkg, PackageManager.GET_PERMISSIONS);
-
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            if (info != null && info.requestedPermissions != null) {
-                for (String requestedPerm : info.requestedPermissions) {
-                    try {
-                        PermissionInfo pInfo = mPackageManager.getPermissionInfo(requestedPerm, 0);
-
-                        if (pInfo != null) {
-                            // only do for permissions that require user permission
-                            if ((pInfo.protectionLevel & PermissionInfo.PROTECTION_MASK_BASE) == PermissionInfo.PROTECTION_DANGEROUS) {
-                                Log.w("DEBUG_PERMISSIONS", pkg + " - " + pInfo.name);
-
-                                // set to GRANTED
-                                mDevicePolicyManager.setPermissionGrantState(mAdminComponentName, pkg, pInfo.name, DevicePolicyManager.PERMISSION_GRANT_STATE_GRANTED);
-                            }
-                        }
-
-                    } catch (PackageManager.NameNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
 
     /**
      *
