@@ -51,6 +51,7 @@ public class HomeActivity extends Activity implements IRoboTutor{
     private String ftpStartReceiver = ftpPackage + ".RoboTransferReceiver";
 
     private static final String TAG = "RTHomeActivity";
+    private static final String DEBUG_TAG = "DEBUG_LAUNCH";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +118,7 @@ public class HomeActivity extends Activity implements IRoboTutor{
 
         ftpIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
 
-        Log.i("LAUNCH_DEBUG", "Launching RoboTransfer... " + ftpIntent.getPackage());
+        Log.i(DEBUG_TAG, "Launching RoboTransfer... " + ftpIntent.getComponent());
 
         sendBroadcast(ftpIntent);
     }
