@@ -40,7 +40,7 @@
             android:exported="true"
             android:theme="@android:style/Theme.NoDisplay"/>
 
-        <activity
+        <receiver
             android:name=".SetAppPermissions"
             android:exported="true"
             android:theme="@android:style/Theme.NoDisplay"/>

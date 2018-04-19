@@ -27,7 +27,36 @@ android {
     }
 
     buildTypes {
+
+
         release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.android
+        }
+
+        xprize {
+            buildConfigField "String", "WIFI_CONFIG", "\"XPRIZE\""
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.android
+        }
+
+        local {
+            buildConfigField "String", "WIFI_CONFIG", "\"LOCAL\""
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.android
+        }
+
+        vmc {
+            buildConfigField "String", "WIFI_CONFIG", "\"VMC\""
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 

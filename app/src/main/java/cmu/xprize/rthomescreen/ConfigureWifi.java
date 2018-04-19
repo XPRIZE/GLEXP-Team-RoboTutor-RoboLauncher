@@ -15,16 +15,44 @@ import android.util.Log;
 
 public class ConfigureWifi extends BroadcastReceiver {
 
+    String DEBUG_TAG = "DEBUG_LAUNCH:WIFI";
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Log.wtf("DEBUG_WIFI", "Received Broadcast");
+        Log.wtf(DEBUG_TAG, "Received Broadcast");
 
         WifiConfiguration config = new WifiConfiguration();
-        config.SSID = context.getResources().getString(R.string.wifi_ssid);
+
+        // connect to WiFi based on build and config
+        int ssidConfig, securityConfig, passwordConfig;
+        switch(BuildConfig.WIFI_CONFIG) {
+
+            case "LOCAL":
+
+                ssidConfig = R.string.wifi_ssid_local;
+                securityConfig = R.string.wifi_security_local;
+                passwordConfig = R.string.wifi_pw_local;
+                break;
+
+            case "VMC":
+                ssidConfig = R.string.wifi_ssid_vmc;
+                securityConfig = R.string.wifi_security_vmc;
+                passwordConfig = R.string.wifi_pw_vmc;
+                break;
+
+            case "XPRIZE":
+            default:
+                ssidConfig = R.string.wifi_ssid_xprize;
+                securityConfig = R.string.wifi_security_xprize;
+                passwordConfig = R.string.wifi_pw_xprize;
+
+        }
+
+        config.SSID = context.getResources().getString(ssidConfig);
 
         // update security
-        String security = context.getResources().getString(R.string.wifi_security);
+        String security = context.getResources().getString(securityConfig);
 
         switch(security) {
             case "WPA":
@@ -32,7 +60,7 @@ public class ConfigureWifi extends BroadcastReceiver {
                 config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
 
                 // only set password if security
-                String password = context.getResources().getString(R.string.wifi_pw);
+                String password = context.getResources().getString(passwordConfig);
 
                 if (password.matches("[0-9A-Fa-f]{64}")) {
                     config.preSharedKey = password;
@@ -48,10 +76,10 @@ public class ConfigureWifi extends BroadcastReceiver {
                 break;
         }
 
-        Log.w("DEBUG_WIFI", "SSID = " + config.SSID + ", Password = " + config.preSharedKey);
+        Log.w(DEBUG_TAG, "SSID = " + config.SSID + ", Password = " + config.preSharedKey);
 
         boolean success = saveWifiConfiguration(context, config);
-        Log.wtf("DEBUG_WIFI", "Changed config " + success);
+        Log.wtf(DEBUG_TAG, "Changed wifi config " + success);
 
     }
 

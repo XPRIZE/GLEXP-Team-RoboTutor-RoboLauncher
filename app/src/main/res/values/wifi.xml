@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="wifi_ssid">XPRIZE</string>
-    <string name="wifi_security"></string>
-    <string name="wifi_pw"></string>
+    <!-- xprize -->
+    <string name="wifi_ssid_xprize">XPRIZE</string>
 
+    <string name="wifi_security_xprize"></string>
+
+    <string name="wifi_pw_xprize"></string>
+
+    <!-- vmc -->
+    <string name="wifi_ssid_vmc">XPRIZE</string>
+
+    <string name="wifi_security_vmc">WPA2</string>
+
+    <string name="wifi_pw_vmc">xprizexprize</string>
+
+
+    <!-- Kevin Android -->
+    <string name="wifi_ssid_local">Verizon-SM-G930V-ECC7</string>
+
+    <string name="wifi_security_local">WPA2</string>
+
+    <string name="wifi_pw_local">ffrv876^</string>
 </resources>

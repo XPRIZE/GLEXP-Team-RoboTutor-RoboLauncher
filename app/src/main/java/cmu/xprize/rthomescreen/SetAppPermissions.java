@@ -2,6 +2,7 @@ package cmu.xprize.rthomescreen;
 
 import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +24,7 @@ import static android.os.UserManager.DISALLOW_SAFE_BOOT;
  * Created by kevindeland on 3/2/18.
  */
 
-public class SetAppPermissions extends Activity {
+public class SetAppPermissions extends BroadcastReceiver {
 
     private String flPackage = "com.example.iris.login1";
     private String rtPackage = "cmu.xprize.robotutor";
@@ -35,22 +36,23 @@ public class SetAppPermissions extends Activity {
 
     private PackageManager mPackageManager;
 
+    String DEBUG_TAG = "DEBUG_LAUNCH:PERMISSIONS";
+
 
     @Override
-    public void onCreate(Bundle savedInsanceState) {
-        super.onCreate(savedInsanceState);
+    public void onReceive(Context context, Intent intent) {
+
+        Log.i(DEBUG_TAG, "Received request to SetAppPermissions");
 
         // stuff needed for kiosk mode
         // TODO move this to one class
-        mAdminComponentName = AdminReceiver.getComponentName(this);
-        mDevicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-        mPackageManager = getPackageManager();
-        mPackageName = getPackageName();
+        mAdminComponentName = AdminReceiver.getComponentName(context);
+        mDevicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+        mPackageManager = context.getPackageManager();
+        mPackageName = context.getPackageName();
 
 
         setAppPermissions();
-
-        finish();
 
     }
 
@@ -66,6 +68,7 @@ public class SetAppPermissions extends Activity {
             try {
                 // get permissions
                 info = mPackageManager.getPackageInfo(pkg, PackageManager.GET_PERMISSIONS);
+                Log.i(DEBUG_TAG, pkg + ": " + info.requestedPermissions.length);
 
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
@@ -79,7 +82,7 @@ public class SetAppPermissions extends Activity {
                         if (pInfo != null) {
                             // only do for permissions that require user permission
                             if ((pInfo.protectionLevel & PermissionInfo.PROTECTION_MASK_BASE) == PermissionInfo.PROTECTION_DANGEROUS) {
-                                Log.w("DEBUG_PERMISSIONS", pkg + " - " + pInfo.name);
+                                Log.w(DEBUG_TAG, pkg + " - " + pInfo.name);
 
                                 // set to GRANTED
                                 mDevicePolicyManager.setPermissionGrantState(mAdminComponentName, pkg, pInfo.name, DevicePolicyManager.PERMISSION_GRANT_STATE_GRANTED);
