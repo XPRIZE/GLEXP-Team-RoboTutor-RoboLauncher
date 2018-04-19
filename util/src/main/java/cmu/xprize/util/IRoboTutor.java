@@ -6,4 +6,5 @@ package cmu.xprize.util;
 public interface IRoboTutor {
 
     public void onStartTutor();
+    public void onBackdoorPressed();
 }

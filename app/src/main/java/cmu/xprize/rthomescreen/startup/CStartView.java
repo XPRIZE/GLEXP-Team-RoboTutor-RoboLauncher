@@ -26,9 +26,13 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -48,6 +52,13 @@ public class CStartView extends FrameLayout {
     private ImageButton  start;
     private IRoboTutor   callback;
     private boolean      tutorEnable = false;
+
+    // backdoor
+    private Button backdoor;
+    private int backdoorCount;
+
+    private LinearLayout backdoorMenu;
+
 
     private final Handler mainHandler  = new Handler(Looper.getMainLooper());
     private HashMap       queueMap     = new HashMap();
@@ -89,21 +100,47 @@ public class CStartView extends FrameLayout {
 
         start = (ImageButton)findViewById(R.id.SstartSelector);
 
+        backdoor = (Button) findViewById(R.id.Sbackdoor);
+        backdoorMenu = (LinearLayout) findViewById(R.id.backdoorMenu);
+
         // Allow hits anywhere on screen
         //
         setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Log.w(TAG, "Clicked gray area");
+                backdoorCount = 0;
                 callback.onStartTutor();
             }
         });
+
         start.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Log.w(TAG, "Clicked start button");
+                backdoorCount = 0;
                 callback.onStartTutor();
             }
         });
+
+        backdoor.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.w(TAG, "Clicked backdoor");
+
+                backdoorCount++;
+                if (backdoorCount == 8) {
+                    Toast.makeText(getContext(), "Keep tapping to enable admin mode", Toast.LENGTH_LONG).show();
+                }
+
+                if (backdoorCount == 16) {
+                    // in this version, I will just let Nathan tap it
+                    callback.onBackdoorPressed();
+                    //backdoorMenu.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+
+
     }
-
-
 
     private void broadcastLocation(String Action, View target) {
 

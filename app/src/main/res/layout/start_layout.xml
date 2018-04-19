@@ -10,6 +10,13 @@
     android:clipChildren="false"
     android:background="@android:color/transparent">
 
+    <Button
+        android:id="@+id/Sbackdoor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        />
+
     <ImageButton
         android:id="@+id/SstartSelector"
         android:layout_width="wrap_content"
@@ -26,5 +33,68 @@
         android:clipChildren="false"
         app:scale_factor="0.3"
         android:background="@null"/>
+
+    <LinearLayout
+        android:id="@+id/backdoorMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:background="@color/colorAccent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/aKey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A"
+                android:textSize="40sp"
+                android:textColor="@android:color/white"
+                android:background="@color/colorPrimary"
+                android:layout_margin="10dp"
+                />
+            <Button
+                android:id="@+id/bKey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B"
+                android:textSize="40sp"
+                android:textColor="@android:color/white"
+                android:background="@color/colorPrimary"
+                android:layout_margin="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cKey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C"
+                android:textSize="40sp"
+                android:textColor="@android:color/white"
+                android:background="@color/colorPrimary"
+                android:layout_margin="10dp"/>
+            <Button
+                android:id="@+id/dKey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="D"
+                android:textSize="40sp"
+                android:textColor="@android:color/white"
+                android:background="@color/colorPrimary"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
 
 </cmu.xprize.rthomescreen.startup.CStartView>
