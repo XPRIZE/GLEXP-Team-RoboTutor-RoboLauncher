@@ -21,7 +21,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import cmu.xprize.rthomescreen.startup.CMasterContainer;
 import cmu.xprize.rthomescreen.startup.CStartView;
@@ -34,6 +36,8 @@ import static android.os.UserManager.DISALLOW_MOUNT_PHYSICAL_MEDIA;
 import static android.os.UserManager.DISALLOW_SAFE_BOOT;
 
 public class HomeActivity extends Activity implements IRoboTutor{
+
+
 
     static public CMasterContainer masterContainer;
 
@@ -52,6 +56,12 @@ public class HomeActivity extends Activity implements IRoboTutor{
 
     private static final String TAG = "RTHomeActivity";
     private static final String DEBUG_TAG = "DEBUG_LAUNCH";
+
+    // do we launch FaceLogin first? Or RoboTutor?
+    private static final boolean LAUNCH_FACELOGIN = false;
+    // launch vars
+    public static final String STUDENT_ID_VAR = "studentId";
+    public static final String SESSION_ID_VAR = "sessionId";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,15 +220,40 @@ public class HomeActivity extends Activity implements IRoboTutor{
     @Override
     public void onStartTutor() {
 
-        Log.w(TAG, "Starting FaceLogin");
-        Intent flIntent = mPackageManager.getLaunchIntentForPackage(flPackage);
+        Intent launchIntent;
+        if (LAUNCH_FACELOGIN) {
+            Log.w(DEBUG_TAG, "Starting FaceLogin");
+            launchIntent = mPackageManager.getLaunchIntentForPackage(flPackage);
+        } else {
+            Log.w(DEBUG_TAG, "Starting RoboTutor");
+            launchIntent = mPackageManager.getLaunchIntentForPackage(rtPackage);
+            Bundle sessionBundle = new Bundle();
+            String uniqueUserID = Build.SERIAL;
+            sessionBundle.putString(STUDENT_ID_VAR, uniqueUserID);
 
-        if(flIntent != null) {
-            startActivity(flIntent);
+            String newSessId = generateSessionID();
+            sessionBundle.putString(SESSION_ID_VAR, newSessId);
+            launchIntent.putExtras(sessionBundle);
+            launchIntent.setFlags(0);
+        }
+
+        if(launchIntent != null) {
+            startActivity(launchIntent);
         } else {
             Toast.makeText(getApplicationContext(), "Please install FaceLogin", Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    /**
+     * Generates a unique SessionID for RoboTutor
+     *
+     * @return
+     */
+    private String generateSessionID() {
+        String deviceId = Build.SERIAL;
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return deviceId + "_" + timestamp;
     }
 
     @Override
