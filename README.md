@@ -21,6 +21,17 @@ This repository contains the Home Screen that may be used to provide Android Hom
 
 3. You may need to install different versions of the Android Studio build tools and SDKs.
 
+4. Add a file named "keystore.properties" to your root project directory, and give it the following contents. The values should be based on the values you used to generate the keystore.
+```
+storePassword=<your_store_password>
+keyPassword=<your_key_password>
+keyAlias=<your_key_alias>
+storeFile=<path_to_location_of_keystore>
+```
+
+5. Use Android Studio or gradlew to generate a signed APK with the flavor "xprize" or "local". This APK can be transferred to your local SystemBuild directory.
+
+
 
 
 ## **Usage:**
