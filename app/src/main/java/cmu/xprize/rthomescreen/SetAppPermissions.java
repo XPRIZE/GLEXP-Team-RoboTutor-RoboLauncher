@@ -61,7 +61,7 @@ public class SetAppPermissions extends BroadcastReceiver {
      */
     private void setAppPermissions() {
 
-        String[] pkgs = {rtPackage, flPackage, ftpPackage};
+        String[] pkgs = {rtPackage, ftpPackage}; // remove FaceLogin
 
         for (String pkg : pkgs) {
             PackageInfo info = null;
