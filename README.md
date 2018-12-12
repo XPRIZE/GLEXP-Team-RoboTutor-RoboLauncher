@@ -5,6 +5,7 @@
 
 This repository contains the Home Screen that may be used to provide Android Home Screen support if RoboTutor is run in a Kiosk configuration.
 
+This version was uploaded to XPRIZE on 11/20/2018. For subsequent changes, see [https://github.com/RoboTutorLLC/RoboSuiteLauncher](https://github.com/RoboTutorLLC/RoboSuiteLauncher).
 
 ## **Setup and Configuration:**
 
